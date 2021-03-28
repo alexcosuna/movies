@@ -1,0 +1,16 @@
+{% extends 'starwars/base.html' %}
+
+{% block content %}
+    {% if not films %}
+        <div class="container p-3">
+            <h2 class="text-center">Sin resultados</h2>
+        </div>
+    {% else %}
+        {% for film in films %}
+            <div class="container p-3">
+                <h2 class="text-center">{{ film.title }}</h2>
+                <p class="text-center">{{ film.opening_crawl }}</p>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
