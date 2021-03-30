@@ -122,6 +122,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # External API
 BASE_URL = 'https://swapi.dev/api/'
 IMAGE_URL = 'https://dummyimage.com/600x400/000/fff&text='

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import History
+from .models import History, PeopleImage
 from django.utils import timezone
 import requests
 from django.http import HttpResponseServerError
@@ -11,7 +11,12 @@ def home(request):
     peoples = r.json().get('results')
     names = []
     for people in peoples:
-        names.append((settings.IMAGE_URL + people.get('name').replace(' ', '+'), people.get('name')))
+        people_image = PeopleImage.objects.filter(peoples__contains=people.get('name'))
+        if not people_image:
+            image_url = settings.IMAGE_URL + people.get('name').replace(' ', '+')
+        else:
+            image_url = people_image[0].image.url
+        names.append((image_url, people.get('name')))
     if r.status_code == 200:
         return render(request, 'starwars/index.html', {'peoples': names})
     return HttpResponseServerError()
